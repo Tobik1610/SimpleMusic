@@ -12,8 +12,8 @@ public class Controller implements ActionListener {
 	private MusicLoop ml;
 	
 	public Controller() {
-		this.view = new MainFrame(this);
 		ml = new MusicLoop(120, 4, true, this);
+		this.view = new MainFrame(this);
 		
 		view.getBpmLabel().setText("Bpm: " + ml.getBpm());
 		
@@ -26,10 +26,16 @@ public class Controller implements ActionListener {
 		ml.addSound(ml.getBeat(), btn.getSound());
 		
 		btn.getSound().play();
+		
+		view.setTableData('X', btn.getTableRow(), ml.getBeat());
 	}
 	
 	public void setBeat(int beat) {
 		view.getBeatLabel().setText("Beat: " + beat);
+	}
+	
+	public int getBeatCount() {
+		return ml.getTacts()*ml.getbPtact();
 	}
 	
 	public void exportSoundFile(String target) {

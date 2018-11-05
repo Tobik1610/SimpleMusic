@@ -1,4 +1,5 @@
 package logic;
+
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections4.MultiValuedMap;
@@ -11,7 +12,7 @@ public class MusicLoop {
 	private int bpm, tacts, bPtact = 4, beat;
 	private boolean loop;
 	private long bLength;
-	
+
 	private Controller controller;
 
 	private MultiValuedMap<Integer, Sound> playlist;
@@ -37,8 +38,8 @@ public class MusicLoop {
 	public int getBeat() {
 		return beat;
 	}
-	
-	public MultiValuedMap<Integer, Sound> getPlaylist(){
+
+	public MultiValuedMap<Integer, Sound> getPlaylist() {
 		return playlist;
 	}
 
@@ -58,6 +59,14 @@ public class MusicLoop {
 		}
 		if (loop)
 			start();
+	}
+
+	public int getTacts() {
+		return tacts;
+	}
+
+	public int getbPtact() {
+		return bPtact;
 	}
 
 }
