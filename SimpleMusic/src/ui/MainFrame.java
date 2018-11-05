@@ -84,6 +84,8 @@ public class MainFrame extends JFrame {
 		
 		JButton exportBtn = new JButton("Export");
 		pan3.add(exportBtn, BorderLayout.CENTER);
+		exportBtn.setActionCommand("EXPORT");
+		exportBtn.addActionListener(controller);
 	}
 
 	public void setBtnListener(ActionListener listener) {

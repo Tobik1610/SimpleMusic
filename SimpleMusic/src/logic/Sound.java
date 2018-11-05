@@ -1,28 +1,46 @@
 package logic;
 import java.io.File;
+import java.io.IOException;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound implements Runnable {
 
 	private File soundFile;
 	private Thread thread;
+	private AudioInputStream audioInputStream;
 
 	public Sound(Sounds sound) {
 		soundFile = new File(sound.getFilePath());
+		
+		audioInputStream = null;
 	}
 
 	public void play() {
 		thread = new Thread(this);
 		thread.start();
 	}
+	
+	public AudioInputStream generateInputStream() {
+		try {
+			return AudioSystem.getAudioInputStream(soundFile);
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public void run() {
-		AudioInputStream audioInputStream = null;
 		try {
-			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+			audioInputStream = generateInputStream();
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();

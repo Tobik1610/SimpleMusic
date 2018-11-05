@@ -1,6 +1,5 @@
 package logic;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
@@ -67,6 +66,10 @@ public class MusicLoop {
 
 	public int getbPtact() {
 		return bPtact;
+	}
+	
+	public long getbLength() {
+		return this.bLength;
 	}
 
 }
