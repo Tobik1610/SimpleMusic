@@ -9,7 +9,7 @@ public class SoundButton extends JButton {
 	private Sound sound;
 
 	public SoundButton(Sounds sounds, MusicLoop ml) {
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(200, 100));
 		setText(sounds.name());
 
 		sound = new Sound(sounds);
