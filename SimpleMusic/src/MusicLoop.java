@@ -19,7 +19,7 @@ public class MusicLoop {
 
 		this.playlist = new ArrayListValuedHashMap<>();
 	}
-	
+
 	public int getBpm() {
 		return bpm;
 	}
@@ -43,7 +43,7 @@ public class MusicLoop {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			beat++;
+			System.out.println(beat++);
 		}
 		if (loop)
 			start();
