@@ -63,7 +63,7 @@ public class Controller implements ActionListener {
 
 		try {
 			blankAis = AudioSystem.getAudioInputStream(new File("resources/sounds/blank.wav"));
-			blankAis = new AudioInputStream(blankAis, blankAis.getFormat(), ml.getbLength());
+			blankAis = new AudioInputStream(blankAis, blankAis.getFormat(), 88200);
 		} catch (UnsupportedAudioFileException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -71,8 +71,10 @@ public class Controller implements ActionListener {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		//
-		// for (int i = 1; i < ml.getTacts() * ml.getbPtact(); i++) {
+		
+		finalAis = blankAis;
+		 for (int i = 1; i < ml.getTacts() * ml.getbPtact(); i++) {
+			 finalAis = concatAuInStr(finalAis, blankAis);
 		// Collection<Sound> sounds = ml.getPlaylist().get(i);
 		// if (sounds.isEmpty()) {
 		// if (ais1 != null)
@@ -88,22 +90,27 @@ public class Controller implements ActionListener {
 		//
 		// }
 		// }
-		// }
+		 }
 
-		if (ais1 == null)
-			ais1 = blankAis;
-
-		for (Entry<Integer, Sound> entry : ml.getPlaylist().entries()) {
-			ais2 = entry.getValue().generateInputStream();
-			ais1 = new AudioInputStream(new SequenceInputStream(ais1, ais2), ais1.getFormat(),
-					ais1.getFrameLength() + ais2.getFrameLength());
-		}
+//		if (ais1 == null)
+//			ais1 = blankAis;
+//
+//		for (Entry<Integer, Sound> entry : ml.getPlaylist().entries()) {
+//			ais2 = entry.getValue().generateInputStream();
+//			ais1 = concatAuInStr(ais1, ais2);
+//		}
 
 		try {
-			AudioSystem.write(ais1, AudioFileFormat.Type.WAVE, new File(target));
+			AudioSystem.write(finalAis, AudioFileFormat.Type.WAVE, new File(target));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+	
+	private AudioInputStream concatAuInStr(AudioInputStream stream1, AudioInputStream stream2) {
+		return new AudioInputStream(new SequenceInputStream(stream1, stream2), stream1.getFormat(),
+				stream1.getFrameLength() + stream2.getFrameLength());
 	}
 }
