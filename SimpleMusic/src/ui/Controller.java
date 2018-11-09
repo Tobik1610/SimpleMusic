@@ -46,7 +46,7 @@ public class Controller implements ActionListener {
 			view.setTableData('X', btn.getTableRow(), ml.getBeat());
 			break;
 		case "EXPORT":
-			exportSoundFile("C:\\Users\\014365\\Downloads/wav.wav");
+			exportSoundFile("D:\\Download/wav.wav");
 			break;
 		}
 
