@@ -27,11 +27,7 @@ public class Sound implements Runnable {
 	public AudioInputStream generateInputStream() {
 		try {
 			return AudioSystem.getAudioInputStream(soundFile);
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

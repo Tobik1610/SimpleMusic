@@ -15,6 +15,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.collections4.MultiValuedMap;
 
+import logic.MusicExporter;
 import logic.MusicLoop;
 import logic.Sound;
 
@@ -22,6 +23,7 @@ public class Controller implements ActionListener {
 
 	private MainFrame view;
 	private MusicLoop ml;
+	private MusicExporter mex;
 
 	public Controller() {
 		ml = new MusicLoop(120, 4, true, this);
@@ -44,7 +46,7 @@ public class Controller implements ActionListener {
 			view.setTableData('X', btn.getTableRow(), ml.getBeat());
 			break;
 		case "EXPORT":
-			exportSoundFile("D:\\Download/wav.wav");
+			exportSoundFile("C:\\Users\\014365\\Downloads/wav.wav");
 			break;
 		}
 
@@ -59,58 +61,9 @@ public class Controller implements ActionListener {
 	}
 
 	public void exportSoundFile(String target) {
-		AudioInputStream ais1 = null, ais2, blankAis = null, finalAis = null;
-
-		try {
-			blankAis = AudioSystem.getAudioInputStream(new File("resources/sounds/blank.wav"));
-			blankAis = new AudioInputStream(blankAis, blankAis.getFormat(), 88200);
-		} catch (UnsupportedAudioFileException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
-		finalAis = blankAis;
-		 for (int i = 1; i < ml.getTacts() * ml.getbPtact(); i++) {
-			 finalAis = concatAuInStr(finalAis, blankAis);
-		// Collection<Sound> sounds = ml.getPlaylist().get(i);
-		// if (sounds.isEmpty()) {
-		// if (ais1 != null)
-		// ais1 = new AudioInputStream(new SequenceInputStream(ais1, blankAis),
-		// ais1.getFormat(),
-		// ais1.getFrameLength() + blankAis.getFrameLength());
-		// else
-		// ais1 = new AudioInputStream(new SequenceInputStream(blankAis, blankAis),
-		// blankAis.getFormat(),
-		// blankAis.getFrameLength() + blankAis.getFrameLength());
-		// } else {
-		// for (Sound sound : sounds) {
-		//
-		// }
-		// }
-		 }
-
-//		if (ais1 == null)
-//			ais1 = blankAis;
-//
-//		for (Entry<Integer, Sound> entry : ml.getPlaylist().entries()) {
-//			ais2 = entry.getValue().generateInputStream();
-//			ais1 = concatAuInStr(ais1, ais2);
-//		}
-
-		try {
-			AudioSystem.write(finalAis, AudioFileFormat.Type.WAVE, new File(target));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		mex = new MusicExporter();
+		mex.startExport(target);
 
 	}
-	
-	private AudioInputStream concatAuInStr(AudioInputStream stream1, AudioInputStream stream2) {
-		return new AudioInputStream(new SequenceInputStream(stream1, stream2), stream1.getFormat(),
-				stream1.getFrameLength() + stream2.getFrameLength());
-	}
+
 }
